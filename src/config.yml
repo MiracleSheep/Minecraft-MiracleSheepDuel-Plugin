@@ -1,0 +1,125 @@
+Kits:
+  UHC:
+    - NETHERITE_LEGGINGS
+    - NETHERITE_CHESTPLATE
+    - NETHERITE_HELMET
+    - NETHERITE_BOOTS
+    - GOLDEN_APPLE
+    - GOLDEN_APPLE
+    - GOLDEN_APPLE
+    - GOLDEN_APPLE
+    - GOLDEN_APPLE
+    - GOLDEN_APPLE
+    - NETHERITE_SWORD
+    - NETHERITE_AXE
+    - LAVA_BUCKET
+    - WATER_BUCKET
+    - BOW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - ARROW
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+  Classic:
+    - DIAMOND_BOOTS
+    - DIAMOND_LEGGINGS
+    - DIAMOND_CHESTPLATE
+    - DIAMOND_HELMET
+    - DIAMOND_SWORD
+    - DIAMOND_AXE
+    - SHIELD
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+    - COOKED_BEEF
+
+
+Stadiums:
+  ArenaOne:
+    PlayerOne:
+      X: -77
+      Y: 95
+      Z: -63
+    PlayerTwo:
+      X: -77
+      Y: 95
+      Z: -74
+    Spectator:
+      X: -77
+      Y: 95
+      Z: -63
+
+
+KitNames:
+  - UHC
+  - Classic
+
+
+ArenaNames:
+  - ArenaOne
+
+
+WorldNames:
+  - Arena
+
+
+UHC: GOLDEN_APPLE
+
+
+Classic: FISHING_ROD
+

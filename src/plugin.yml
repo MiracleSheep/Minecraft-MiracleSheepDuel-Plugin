@@ -1,0 +1,27 @@
+name: DuelPlugin
+version: 1.0
+author: MiracleSheep
+main: com.MiracleSheep.DuelPlugin.DuelPlugin
+api-version: 1.14
+depends: [Multiverse-Core]
+commands:
+  Kitlist:
+    description: Used to list custom kits
+    usage: /<command>
+  KitItems:
+    description: Allows you to see the items in a kit
+    usage: /<command>
+  Kitequip:
+    description: Gives you a kit and saves your inventory
+    usage: /<command>
+  Kitunequip:
+    description: Returns your inventory
+    usage: /<command>
+  duel:
+    description: teleports you to an arena and begins duel
+    usage: /<command>
+  accept:
+    description: Accepts a duel request
+    usage: /<command>
+
+

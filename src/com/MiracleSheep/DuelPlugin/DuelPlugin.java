@@ -2,12 +2,6 @@ package com.MiracleSheep.DuelPlugin;
 import com.MiracleSheep.DuelPlugin.Events.DuelPluginEvents;
 import com.MiracleSheep.DuelPlugin.Inventory.DuelSelection;
 import com.MiracleSheep.DuelPlugin.Save.ConfigLoader;
-import com.MiracleSheep.MiracleSheepEssentials.Commands.MiracleSheepEssentialsCommands;
-import com.MiracleSheep.MiracleSheepEssentials.MiracleSheepEssentials;
-import com.onarandombox.MultiverseCore.MVWorld;
-import com.onarandombox.MultiverseCore.event.MVTeleportEvent;
-import com.onarandombox.MultiverseCore.utils.MVPlayerSession;
-import com.onarandombox.MultiverseCore.utils.MVTravelAgent;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,6 +35,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     public void onEnable() {
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new DuelPluginEvents(this), this);
+        resetDuelRequest();
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[MiracleSheepDuelPlugin] plugin is enabled.");
 
     }
@@ -184,8 +179,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "No one has sent you a duel request!");
-                player.sendMessage(ChatColor.DARK_RED + "Requested: " + getRequested().getName());
-                player.sendMessage(ChatColor.DARK_RED + "Requester:" + getRequester().getName());
+
             }
 
 

@@ -100,26 +100,21 @@ Kits:
 Stadiums:
   ArenaOne:
     PlayerOne:
-      X: -77
-      Y: 95
-      Z: -63
+      X: -36
+      Y: 6
+      Z: 404
     PlayerTwo:
-      X: -77
-      Y: 95
-      Z: -74
+      X: -36
+      Y: 6
+      Z: 280
     Spectator:
-      X: -77
-      Y: 95
-      Z: -63
+      X: -34
+      Y: 24
+      Z: 345
 
 
+worldname: "Stadium"
 
-ArenaNames:
-  - ArenaOne
-
-
-WorldNames:
-  - Arena
 
 
 

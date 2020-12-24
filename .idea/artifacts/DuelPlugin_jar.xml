@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="DuelPlugin:jar">
-    <output-path>$PROJECT_DIR$/../Server/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../../ServerPluginTest/plugins</output-path>
     <root id="archive" name="DuelPlugin.jar">
       <element id="module-output" name="DuelPlugin" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../Dependencies/spigot-api-1.16.4-R0.1-20201121.022704-24.jar" path-in-jar="/" />

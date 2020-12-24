@@ -81,8 +81,9 @@ public class DuelPluginEvents implements Listener {
 
 
             Player player = (Player) e.getEntity();
+        String duelworld = String.valueOf(main.getConfig().getString("worldname"));
         World w = Bukkit.getServer().getWorld("world");
-        World d = Bukkit.getServer().getWorld("Arena");
+        World d = Bukkit.getServer().getWorld(duelworld);
 
         if (main.getRequested().getWorld() == d && main.getRequester().getWorld() == d) {
 
@@ -93,6 +94,8 @@ public class DuelPluginEvents implements Listener {
                     main.dequipkit(player);
                     main.getRequested().sendMessage(ChatColor.GREEN + "You won the duel! Sending you home...");
                     main.dequipkit(main.getRequested());
+                    main.getRequester().setFireTicks(0);
+                    main.getRequested().setFireTicks(0);
                     main.getRequested().setHealth(20);
                     main.getRequester().setHealth(20);
                     main.getRequested().teleport(w.getSpawnLocation());
@@ -107,6 +110,8 @@ public class DuelPluginEvents implements Listener {
                     main.dequipkit(player);
                     main.getRequester().sendMessage(ChatColor.GREEN + "You won the duel! Sending you home...");
                     main.dequipkit(main.getRequester());
+                    main.getRequester().setFireTicks(0);
+                    main.getRequested().setFireTicks(0);
                     main.getRequested().setHealth(20);
                     main.getRequester().setHealth(20);
                     main.getRequested().teleport(w.getSpawnLocation());

@@ -16,39 +16,35 @@ public class ConfigLoader {
 
     }
 
+    public World GetWorld() {
+        String duelworld = String.valueOf(main.getConfig().getString("worldname"));
+        World d = Bukkit.getServer().getWorld(duelworld);
+        return (d);
+    }
+
 
     public Location getPlayerOneSpawn(String Arena) {
-        World w = Bukkit.getServer().getWorld("world");
-        World d = Bukkit.getServer().getWorld("Arena");
-
         int x = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.X");
         int y = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.Y");
         int z = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.Z");
-        Location playerone = new Location(d, x, y, z);
+        Location playerone = new Location(GetWorld(), x, y, z);
         return(playerone);
     }
 
     public Location getPlayerTwoSpawn(String Arena) {
-        World w = Bukkit.getServer().getWorld("world");
-        World d = Bukkit.getServer().getWorld("Arena");
-
-
         int x = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.X");
         int y = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.Y");
         int z = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.Z");
 
-        Location playertwo = new Location(d, x, y, z);
+        Location playertwo = new Location(GetWorld(), x, y, z);
         return(playertwo);
     }
 
     public Location getSpectatorSpawn(String Arena){
-        World w = Bukkit.getServer().getWorld("world");
-        World d = Bukkit.getServer().getWorld("Arena");
-
         int x = main.getConfig().getInt("Stadiums." + Arena + ".Spectator.X");
         int y = main.getConfig().getInt("Stadiums." + Arena + ".Spectator.Y");
         int z = main.getConfig().getInt("Stadiums." + Arena + ".Spectator.Z");
-        Location spectator = new Location(d, x, y, z);
+        Location spectator = new Location(GetWorld(), x, y, z);
         return(spectator);
     }
 

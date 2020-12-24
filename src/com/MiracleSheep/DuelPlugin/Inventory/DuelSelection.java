@@ -15,19 +15,30 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.Console;
 import java.io.File;
 import java.io.ObjectInputFilter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DuelSelection implements InventoryHolder {
 
     private Inventory inv;
     private final DuelPlugin main;
+    int inventorysize = 9;
 
 
     public DuelSelection(DuelPlugin main) {
-        inv = Bukkit.createInventory(this,9,"DuelSelection");//max size 54
+
+
+        if (main.getConfig().getConfigurationSection("Kits").getKeys(false).size() > 9 && main.getConfig().getConfigurationSection("Kits").getKeys(false).size() <= 18) {
+            inventorysize = 18;
+        } else if (main.getConfig().getConfigurationSection("Kits").getKeys(false).size() > 18 && main.getConfig().getConfigurationSection("Kits").getKeys(false).size() <= 27) {
+            inventorysize = 27;
+        } else if (main.getConfig().getConfigurationSection("Kits").getKeys(false).size() > 27 && main.getConfig().getConfigurationSection("Kits").getKeys(false).size() <= 36) {
+            inventorysize = 36;
+        } else if (main.getConfig().getConfigurationSection("Kits").getKeys(false).size() > 36 && main.getConfig().getConfigurationSection("Kits").getKeys(false).size() <= 45) {
+            inventorysize = 45;
+        } else if (main.getConfig().getConfigurationSection("Kits").getKeys(false).size() > 45 && main.getConfig().getConfigurationSection("Kits").getKeys(false).size() <= 54) {
+            inventorysize = 54;
+        }
+        inv = Bukkit.createInventory(this,inventorysize,"DuelSelection");//max size 54
         this.main = main;
         init(this.main);
 
@@ -35,27 +46,21 @@ public class DuelSelection implements InventoryHolder {
 
     private void init(DuelPlugin main) {
         ItemStack item;
+        int kitnum = main.getConfig().getConfigurationSection("Kits").getKeys(false).size();
+        String[] name = main.getConfig().getConfigurationSection("Kits").getKeys(false).toArray(new String[0]);
 
+        for (int g = 0; g < main.getConfig().getConfigurationSection("Kits").getKeys(false).size(); g++) {
 
-
-        for (int g = 0; g < main.getConfig().getStringList("KitNames").size(); g++) {
-            String name = String.valueOf(main.getConfig().getStringList("KitNames").get(g));
-            Material icon = Material.valueOf(String.valueOf(main.getConfig().getString(name)));
-            item = createItem(name ,icon, Collections.singletonList("Kit #" + (g+1)));
+            Material icon = Material.valueOf(String.valueOf(main.getConfig().getString("Kits." + name[g] + ".Icon")));
+            item = createItem(name[g] ,icon, Collections.singletonList("Kit #" + (g+1)));
             inv.setItem(g,item);
 
             }
 
-        for (int i = main.getConfig().getStringList("KitNames").size(); i < 9 ; i++) {
+        for (int i = kitnum; i < inventorysize ; i++) {
             item = createItem("None",Material.WHITE_STAINED_GLASS_PANE, Collections.singletonList("Not a kit"));
             inv.setItem(i,item);
         }
-
-/*        List<String> lore = new ArrayList<>();
-        lore.add("Please enter the accept");
-        lore.add("or deny button");
-        item = createItem("Make a selection", Material.BOOK,lore);
-        inv.setItem(inv.firstEmpty(),item);*/
 
 
     }

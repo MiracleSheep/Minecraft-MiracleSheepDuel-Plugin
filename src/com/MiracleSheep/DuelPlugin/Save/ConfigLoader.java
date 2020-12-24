@@ -37,10 +37,6 @@ public class ConfigLoader {
         int y = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.Y");
         int z = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.Z");
 
-        main.player.sendMessage("Playertwox: " + x);
-        main.player.sendMessage("Playertwox: " + y);
-        main.player.sendMessage("Playertwox: " + z);
-
         Location playertwo = new Location(d, x, y, z);
         return(playertwo);
     }

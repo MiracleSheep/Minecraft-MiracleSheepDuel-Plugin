@@ -1,92 +1,148 @@
 Kits:
   UHC:
-    - NETHERITE_LEGGINGS
-    - NETHERITE_CHESTPLATE
-    - NETHERITE_HELMET
-    - NETHERITE_BOOTS
-    - GOLDEN_APPLE
-    - GOLDEN_APPLE
-    - GOLDEN_APPLE
-    - GOLDEN_APPLE
-    - GOLDEN_APPLE
-    - GOLDEN_APPLE
-    - NETHERITE_SWORD
-    - NETHERITE_AXE
-    - LAVA_BUCKET
-    - WATER_BUCKET
-    - BOW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - ARROW
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
+    Icon: GOLDEN_APPLE
+    Items:
+      - NETHERITE_LEGGINGS
+      - NETHERITE_CHESTPLATE
+      - NETHERITE_HELMET
+      - NETHERITE_BOOTS
+      - GOLDEN_APPLE
+      - GOLDEN_APPLE
+      - GOLDEN_APPLE
+      - GOLDEN_APPLE
+      - GOLDEN_APPLE
+      - GOLDEN_APPLE
+      - NETHERITE_SWORD
+      - NETHERITE_AXE
+      - LAVA_BUCKET
+      - WATER_BUCKET
+      - BOW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - ARROW
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
   Classic:
-    - DIAMOND_BOOTS
-    - DIAMOND_LEGGINGS
-    - DIAMOND_CHESTPLATE
-    - DIAMOND_HELMET
-    - DIAMOND_SWORD
-    - DIAMOND_AXE
-    - SHIELD
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
-    - COOKED_BEEF
+    Icon: FISHING_ROD
+    Items:
+      - DIAMOND_BOOTS
+      - DIAMOND_LEGGINGS
+      - DIAMOND_CHESTPLATE
+      - DIAMOND_HELMET
+      - DIAMOND_SWORD
+      - DIAMOND_AXE
+      - SHIELD
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+      - COOKED_BEEF
+  Leather:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather9:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather8:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather7:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather6:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather5:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather4:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather3:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather2:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+  Leather1:
+    Icon: LEATHER_CHESTPLATE
+    Items:
+      - LEATHER_CHESTPLATE
+      - WOODEN_SWORD
+
+
 
 
 Stadiums:
@@ -105,10 +161,6 @@ Stadiums:
       Z: -63
 
 
-KitNames:
-  - UHC
-  - Classic
-
 
 ArenaNames:
   - ArenaOne
@@ -118,8 +170,5 @@ WorldNames:
   - Arena
 
 
-UHC: GOLDEN_APPLE
 
-
-Classic: FISHING_ROD
 

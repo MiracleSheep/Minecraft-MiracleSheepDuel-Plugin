@@ -49,18 +49,19 @@ public class DuelPluginEvents implements Listener {
                 e.setCancelled(true);
                 Player player = (Player) e.getWhoClicked();
                 int slotnum = e.getSlot();
+                int kitnum = main.getConfig().getConfigurationSection("Kits").getKeys(false).size();
 
                 if (e.getCurrentItem() == null) {
                     return;
                 }
 
-                if (slotnum >= 0 && slotnum < main.getConfig().getStringList("KitNames").size()) {
+                if (slotnum >= 0 && slotnum < kitnum) {
                     main.sendRequest();
                     main.save.setType(e.getSlot());
                     main.getRequester().closeInventory();
 
 
-                } else if (slotnum >= main.getConfig().getStringList("KitNames").size()) {
+                } else if (slotnum >= kitnum) {
                     player.sendMessage(ChatColor.DARK_RED + "That is not a valid kit");
                 }
 
@@ -76,9 +77,9 @@ public class DuelPluginEvents implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
 
+        if (!(e.getEntity() instanceof Player)) {return;}
 
 
-        if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
         World w = Bukkit.getServer().getWorld("world");
         World d = Bukkit.getServer().getWorld("Arena");
@@ -86,7 +87,7 @@ public class DuelPluginEvents implements Listener {
         if (main.getRequested().getWorld() == d && main.getRequester().getWorld() == d) {
 
             if (main.getRequester() == player) {
-                if (player.getHealth() - e.getDamage() < 1.5) {
+                if (player.getHealth() - e.getDamage() < 0.1) {
                     e.setCancelled(true);
                     player.sendMessage(ChatColor.RED + "You lost... sending you home...");
                     main.dequipkit(player);
@@ -96,10 +97,11 @@ public class DuelPluginEvents implements Listener {
                     main.getRequester().setHealth(20);
                     main.getRequested().teleport(w.getSpawnLocation());
                     main.getRequester().teleport(w.getSpawnLocation());
+                    main.resetDuelRequest();
                 }
 
             } else if (main.getRequested() == player) {
-                if (player.getHealth() - e.getDamage() < 1.5) {
+                if (player.getHealth() - e.getDamage() < 0.1) {
                     e.setCancelled(true);
                     player.sendMessage(ChatColor.RED + "You lost... sending you home...");
                     main.dequipkit(player);
@@ -109,21 +111,12 @@ public class DuelPluginEvents implements Listener {
                     main.getRequester().setHealth(20);
                     main.getRequested().teleport(w.getSpawnLocation());
                     main.getRequester().teleport(w.getSpawnLocation());
+                    main.resetDuelRequest();
                 }
             }
+
+
         }
-
-        }
-
-
-
-
-
-
-
-
-
-        Player p = (Player) e.getEntity();
 
     }
 }

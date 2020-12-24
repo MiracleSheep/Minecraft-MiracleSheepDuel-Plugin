@@ -14,7 +14,10 @@ public class Acceptclass {
 
 
     public void setType(int i) {
-        dueltype = main.getConfig().getStringList("KitNames").get(i);
+
+        String[] name = main.getConfig().getConfigurationSection("Kits").getKeys(false).toArray(new String[0]);
+        dueltype = name[i];
+
     }
 
 }

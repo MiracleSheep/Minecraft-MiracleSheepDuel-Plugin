@@ -76,8 +76,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 return true;
             }
 
-            String s = String.valueOf(getConfig().getStringList("KitNames"));
-
+            String s = String.valueOf(getConfig().getConfigurationSection("Kits").getKeys(false));
             player.sendMessage(ChatColor.GOLD + "The kits are:");
             player.sendMessage(ChatColor.GOLD + s);
         }
@@ -91,7 +90,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
             if (args.length == 1) {
                 String KitName = args[0];
-                String Path = "Kits." + KitName;
+                String Path = "Kits." + KitName + ".Items";
                 String s = String.valueOf(getConfig().getStringList(Path));
 
                 player.sendMessage(ChatColor.GOLD + "The kit items are:");
@@ -114,16 +113,8 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
             }
 
             if (args.length == 1) {
-                String KitName = args[0];
-                String Path = "Kits." + KitName;
-                saveInventory(player);
-                player.getInventory().clear();
-                for (int i = 0; i < getConfig().getStringList(Path).size(); i++) {
-                    String s = String.valueOf(getConfig().getStringList(Path).get(i));
-                    String Mat = s;
-                    ItemStack itemStack = new ItemStack(Material.getMaterial(Mat));
-                    player.getInventory().addItem(itemStack);
-                }
+
+            equipkit(player,args[0]);
 
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "This command has the wrong number of arguments.");
@@ -138,7 +129,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
             }
 
             if (!sender.hasPermission("Duel.kits")) {
-                player.sendMessage(ChatColor.DARK_RED + "You do not have permission to perform this command");
+                player.sendMessage(ChatColor.DARK_RED + "You do not have permis`sion to perform this command");
                 return true;
             }
 
@@ -166,7 +157,6 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 }
 
                 saveDuelRequest();
-
                 player.openInventory(returnGui().getInventory());
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "Too many or not enough arguments");
@@ -239,6 +229,19 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
         }
     }
 
+    public void resetDuelRequest() {
+        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel.yml");
+        FileConfiguration c = YamlConfiguration.loadConfiguration(f);
+        c.set("requested", "None");
+        c.set("requester", "None");
+        try {
+            c.save(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public Player getRequested() {
         File f = new File(this.getDataFolder().getAbsolutePath(), "Duel.yml");
@@ -261,11 +264,12 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
     public void equipkit(Player player, String type) {
-        String Path = "Kits." + type;
+        String KitName = type;
+        String Path = "Kits." + KitName + ".Items";
         saveInventory(player);
         player.getInventory().clear();
-        for (int g = 0; g < getConfig().getStringList(Path).size(); g++) {
-            String s = String.valueOf(getConfig().getStringList(Path).get(g));
+        for (int i = 0; i < getConfig().getStringList(Path).size(); i++) {
+            String s = String.valueOf(getConfig().getStringList(Path).get(i));
             String Mat = s;
             ItemStack itemStack = new ItemStack(Material.getMaterial(Mat));
             player.getInventory().addItem(itemStack);

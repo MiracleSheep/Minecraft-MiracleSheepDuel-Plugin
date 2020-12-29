@@ -8,18 +8,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
 
 
 public class DuelPlugin extends JavaPlugin implements CommandExecutor {
@@ -85,11 +84,36 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
             if (args.length == 1) {
                 String KitName = args[0];
-                String Path = "Kits." + KitName + ".Items";
-                String s = String.valueOf(getConfig().getStringList(Path));
-
+                int itemList = getConfig().getStringList("Kits." + KitName + ".Items").size();
                 player.sendMessage(ChatColor.GOLD + "The kit items are:");
-                player.sendMessage(ChatColor.GOLD + s);
+                String[] Items = new String[getConfig().getStringList("Kits." + KitName + ".Items").size()];
+
+                for(int i = 0; i < itemList; i++) {
+                    Items[i] = getConfig().getStringList("Kits." + KitName + ".Items").get(i);
+                }
+
+
+                for (int i = 0 ; i < itemList ; i++) {
+                    int length = Items[i].length();
+                    int findspace = Items[i].indexOf(" ");
+                    String Item = Items[i].substring(0,findspace);
+                    String Items2 = Items[i].substring(findspace+1);
+                    int findspace2 = Items2.indexOf(" ");
+                    Short meta = Short.parseShort(Items2.substring(0,findspace2));
+                    String Items3 = Items2.substring(findspace2 + 1);
+                    int findspace3 = Items3.indexOf(" ");
+                    int amount = Integer.parseInt(Items3.substring(0,findspace3));
+
+
+                    player.sendMessage(ChatColor.GOLD + "-" + Item + "x" + amount);
+
+                }
+
+
+                player.sendMessage(ChatColor.GOLD + "End of list.");
+
+
+
             } else {
                 player.sendMessage(ChatColor.GOLD + "This command has the wrong number of arguments.");
             }
@@ -258,17 +282,81 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
     public void equipkit(Player player, String type) {
-        String KitName = type;
-        String Path = "Kits." + KitName + ".Items";
-        saveInventory(player);
-        player.getInventory().clear();
-        for (int i = 0; i < getConfig().getStringList(Path).size(); i++) {
-            String s = String.valueOf(getConfig().getStringList(Path).get(i));
-            String Mat = s;
-            ItemStack itemStack = new ItemStack(Material.getMaterial(Mat));
-            player.getInventory().addItem(itemStack);
-        }
-    }
+                saveInventory(player);
+                player.getInventory().clear();
+                String[] Items = new String[getConfig().getStringList("Kits." + type + ".Items").size()];
+
+                for(int i = 0; i < getConfig().getStringList("Kits." + type + ".Items").size(); i++) {
+                    Items[i] = getConfig().getStringList("Kits." + type + ".Items").get(i);
+                }
+
+                for(int i = 0; i < getConfig().getStringList("Kits." + type + ".Items").size(); i++) {
+
+                    int length = Items[i].length();
+                    int findspace = Items[i].indexOf(" ");
+                    String Item = Items[i].substring(0,findspace);
+
+                    String Items2 = Items[i].substring(findspace+1);
+                    int findspace2 = Items2.indexOf(" ");
+                    Short meta = Short.parseShort(Items2.substring(0,findspace2));
+
+                    String Items3 = Items2.substring(findspace2 + 1);
+                    int findspace3 = Items3.indexOf(" ");
+                    int amount = Integer.parseInt(Items3.substring(0,findspace3));
+
+                    ItemStack stack = new ItemStack(Material.getMaterial(Item), amount, meta);
+                    player.getInventory().addItem(stack);
+
+
+
+
+                }
+               /* if (it.hasNext()) {
+                    while (it.hasNext()) {
+                        String[] item = Items.split(" ");
+                        String id = item[0];
+                        short meta = (short) Integer.parseInt(item[1]);
+                        int amount = Integer.parseInt(item[2]);
+                        ItemStack stack = new ItemStack(Material.getMaterial(id), amount, meta);
+                        if (!item[3].contains("none")) {
+                            int level = Integer.parseInt(item[4]);
+                            Enchantment enchant = Enchantment.getByName(item[3].toUpperCase());
+                            stack.addEnchantment(enchant, level);
+
+                            if (!item[5].contains("none")) {
+
+                                int level2 = Integer.parseInt(item[6]);
+                                Enchantment enchant2 = Enchantment.getByName(item[5].toUpperCase());
+                                stack.addEnchantment(enchant, level);
+
+
+                                if (!item[7].contains("none")) {
+
+                                    int lv2 = Integer.parseInt(item[8]);
+                                    Enchantment e2 = Enchantment.getByName(item[7].toUpperCase());
+                                    stack.addEnchantment(enchant, level);
+
+                                }
+
+
+
+                            }
+
+                        }
+                        player.getInventory().addItem(stack);
+                    }
+                }*/
+            }
+
+
+
+
+
+
+
+
+
+
 
 
     public void dequipkit(Player player) {

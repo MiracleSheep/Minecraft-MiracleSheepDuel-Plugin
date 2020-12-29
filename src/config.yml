@@ -2,100 +2,30 @@ Kits:
   UHC:
     Icon: GOLDEN_APPLE
     Items:
-      - NETHERITE_LEGGINGS
-      - NETHERITE_CHESTPLATE
-      - NETHERITE_HELMET
-      - NETHERITE_BOOTS
-      - GOLDEN_APPLE
-      - GOLDEN_APPLE
-      - GOLDEN_APPLE
-      - GOLDEN_APPLE
-      - GOLDEN_APPLE
-      - GOLDEN_APPLE
-      - NETHERITE_SWORD
-      - NETHERITE_AXE
-      - LAVA_BUCKET
-      - WATER_BUCKET
-      - BOW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - ARROW
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
+      - NETHERITE_LEGGINGS 0 1 none
+      - NETHERITE_CHESTPLATE 591 1 none
+      - NETHERITE_HELMET 0 1 none
+      - NETHERITE_BOOTS 0 1 none
+      - GOLDEN_APPLE 0 6 none
+      - NETHERITE_SWORD 0 1 none
+      - NETHERITE_AXE 0 1 none
+      - LAVA_BUCKET 0 1 none
+      - WATER_BUCKET 0 1 none
+      - BOW 0 1 none
+      - ARROW 0 15 none
+      - COOKED_BEEF 0 32 none
   Classic:
     Icon: FISHING_ROD
     Items:
-      - DIAMOND_BOOTS
-      - DIAMOND_LEGGINGS
-      - DIAMOND_CHESTPLATE
-      - DIAMOND_HELMET
-      - DIAMOND_SWORD
-      - DIAMOND_AXE
-      - SHIELD
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-      - COOKED_BEEF
-  Leather:
-    Icon: LEATHER_CHESTPLATE
-    Items:
-      - LEATHER_CHESTPLATE
-      - WOODEN_SWORD
+      - DIAMOND_BOOTS 0 1 none
+      - DIAMOND_LEGGINGS 0 1 none
+      - DIAMOND_CHESTPLATE 0 1 none
+      - DIAMOND_HELMET 0 1 none
+      - DIAMOND_SWORD 0 1 none
+      - DIAMOND_AXE 0 1 none
+      - SHIELD 0 1 none
+      - COOKED_BEEF 0 32 none
+
 
 Stadiums:
   ArenaOne:

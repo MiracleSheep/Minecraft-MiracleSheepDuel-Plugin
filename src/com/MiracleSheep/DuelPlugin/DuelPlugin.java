@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -305,6 +306,144 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                     int amount = Integer.parseInt(Items3.substring(0,findspace3));
 
                     ItemStack stack = new ItemStack(Material.getMaterial(Item), amount, meta);
+
+                    String Items4 = Items3.substring(findspace3 + 1);
+                    int findspace4 = Items4.indexOf(" ");
+                    String Enchant = Items4.substring(0,findspace4);
+                    player.sendMessage(ChatColor.DARK_RED + Enchant);
+
+                    if (Enchant.startsWith("n")) {
+                        player.sendMessage(ChatColor.DARK_RED + "Enchant is equal to none");
+                    } else {
+                        player.sendMessage(ChatColor.DARK_RED + "Triggered");
+                        String Items5 = Items4.substring(findspace4 + 1);
+                        int findspace5 = Items5.indexOf(" ");
+                        int lv = Integer.parseInt(Items5.substring(0,findspace5));
+
+                        Enchantment enchant = Enchantment.getByName(Enchant);
+                        stack.addEnchantment(enchant, lv);
+
+
+                        String Items6 = Items5.substring(findspace5 + 1);
+                        int findspace6 = Items6.indexOf(" ");
+                        String Enchant2 = Items6.substring(0,findspace6);
+                        player.sendMessage(ChatColor.DARK_RED + "Enchant2: " + Enchant2);
+                        if (Enchant2.startsWith("n")) {
+
+
+
+
+                        } else {
+
+                            player.sendMessage(ChatColor.DARK_RED + "Second enchant Triggered");
+                            String Items7 = Items6.substring(findspace6 + 1);
+                            player.sendMessage(ChatColor.DARK_RED + "made new substr");
+                            int findspace7 = Items7.indexOf(" ");
+                            player.sendMessage(ChatColor.DARK_RED + "retreived location of nearest space");
+                            int lv2 = Integer.parseInt(Items7.substring(0,findspace7));
+                            player.sendMessage(ChatColor.DARK_RED + "declared lv2");
+
+                            player.sendMessage(ChatColor.DARK_RED + "lv2: " + lv2);
+                            Enchantment enchant2 = Enchantment.getByName(Enchant2);
+                            stack.addEnchantment(enchant2, lv2);
+                            player.sendMessage(ChatColor.DARK_RED + "Enchanted succesfully");
+
+                            String Items8 = Items7.substring(findspace7 + 1);
+                            player.sendMessage(ChatColor.DARK_RED + "Items8 created");
+                            int findspace8 = Items8.indexOf(" ");
+                            player.sendMessage(ChatColor.DARK_RED + "Finding space eight: " + findspace8);
+                            String Enchant3 = Items8.substring(0,findspace8);
+                            player.sendMessage(ChatColor.DARK_RED + "determining next enchant: " + Enchant3);
+                            player.sendMessage(ChatColor.DARK_RED + "found next enchant");
+
+                            if (Enchant3.startsWith("n")) {
+                                player.sendMessage(ChatColor.DARK_RED + "No more enchants");
+                            } else {
+                                player.sendMessage(ChatColor.DARK_RED + "third enchant Triggered");
+
+                                String Items9 = Items8.substring(findspace8 + 1);
+                                int findspace9 = Items9.indexOf(" ");
+                                int lv3 = Integer.parseInt(Items9.substring(0,findspace9));
+
+
+                                Enchantment enchant3 = Enchantment.getByName(Enchant3);
+                                stack.addEnchantment(enchant3, lv3);
+
+                                String Items10 = Items9.substring(findspace9 + 1);
+                                int findspace10 = Items10.indexOf(" ");
+                                String Enchant4 = Items10.substring(0,findspace10);
+
+                                if (Enchant4.startsWith("n")) {
+
+                                } else {
+
+
+                                    String Items11 = Items10.substring(findspace10 + 1);
+                                    int findspace11 = Items9.indexOf(" ");
+                                    int lv4 = Integer.parseInt(Items9.substring(0,findspace9));
+
+
+                                    Enchantment enchant4 = Enchantment.getByName(Enchant4);
+                                    stack.addEnchantment(enchant4, lv4);
+
+
+
+                                    String Items12 = Items11.substring(findspace11 + 1);
+                                    int findspace12 = Items12.indexOf(" ");
+                                    String Enchant5 = Items12.substring(0,findspace12);
+
+                                        if (Enchant5.startsWith("n")) {
+
+                                        } else {
+
+
+                                            String Items13 = Items12.substring(findspace12 + 1);
+                                            int findspace13 = Items13.indexOf(" ");
+                                            int lv5 = Integer.parseInt(Items13.substring(0,findspace13));
+
+
+                                            Enchantment enchant5 = Enchantment.getByName(Enchant5);
+                                            stack.addEnchantment(enchant5, lv5);
+
+
+
+                                            String Items14 = Items13.substring(findspace13 + 1);
+                                            int findspace14 = Items14.indexOf(" ");
+                                            String Enchant6 = Items14.substring(0,findspace14);
+
+                                            if (Enchant6.startsWith("n")) {
+
+                                            } else {
+
+                                                String Items15 = Items14.substring(findspace14 + 1);
+                                                int findspace15 = Items15.indexOf(" ");
+                                                int lv6 = Integer.parseInt(Items15.substring(0,findspace15));
+
+
+                                                Enchantment enchant6 = Enchantment.getByName(Enchant6);
+                                                stack.addEnchantment(enchant6, lv6);
+                                            }
+
+
+                                        }
+
+                                }
+
+
+
+                            }
+
+
+
+
+                        }
+
+
+
+                    }
+
+
+
                     player.getInventory().addItem(stack);
 
 

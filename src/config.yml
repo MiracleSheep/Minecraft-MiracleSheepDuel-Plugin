@@ -1,6 +1,12 @@
+
+
+# contains the kits that are in the duels menu and that can be used in the kitequip command.
 Kits:
+  # name of the kit
   UHC:
+    # Icon that shows up in the duels menu
     Icon: GOLDEN_APPLE
+    # Items in the kit
     Items:
       - NETHERITE_LEGGINGS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
       - NETHERITE_CHESTPLATE 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
@@ -26,7 +32,8 @@ Kits:
       - SHIELD 0 1 none none
       - COOKED_BEEF 0 32 none none
 
-
+# This contains the different stadiums that players will be teleported to, and holds their coordinates.
+# In future updates, multiple arenas (and maybe players) will be able to be specified
 Stadiums:
   ArenaOne:
     PlayerOne:
@@ -42,10 +49,13 @@ Stadiums:
       Y: 24
       Z: 345
 
-
+# This is the world that the plugin looks in when it teleports you to the coordinates under the stadiums key.
+# change this name to the name of the world where you want your arena to be
 worldname: "Stadium"
 
-
+# This controls whether or not illegal enchantments will be allowed to be put on kit items.
+# Enable this to allow illegal enchants
+IllegalEnchants: false
 
 
 

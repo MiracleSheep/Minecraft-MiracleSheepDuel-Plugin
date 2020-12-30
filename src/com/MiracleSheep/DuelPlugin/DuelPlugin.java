@@ -306,6 +306,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                     int amount = Integer.parseInt(Items3.substring(0,findspace3));
 
                     ItemStack stack = new ItemStack(Material.getMaterial(Item), amount, meta);
+                    ItemMeta metaa = stack.getItemMeta();
 
                     String Items4 = Items3.substring(findspace3 + 1);
                     int findspace4 = Items4.indexOf(" ");
@@ -321,7 +322,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                         int lv = Integer.parseInt(Items5.substring(0,findspace5));
 
                         Enchantment enchant = Enchantment.getByName(Enchant);
-                        stack.addEnchantment(enchant, lv);
+                        metaa.addEnchant(enchant, lv, load.IllegalEnchants());
 
 
                         String Items6 = Items5.substring(findspace5 + 1);
@@ -345,7 +346,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
                             player.sendMessage(ChatColor.DARK_RED + "lv2: " + lv2);
                             Enchantment enchant2 = Enchantment.getByName(Enchant2);
-                            stack.addEnchantment(enchant2, lv2);
+                            metaa.addEnchant(enchant2, lv2,load.IllegalEnchants());
                             player.sendMessage(ChatColor.DARK_RED + "Enchanted succesfully");
 
                             String Items8 = Items7.substring(findspace7 + 1);
@@ -367,7 +368,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
                                 Enchantment enchant3 = Enchantment.getByName(Enchant3);
-                                stack.addEnchantment(enchant3, lv3);
+                                metaa.addEnchant(enchant3, lv3,load.IllegalEnchants());
 
                                 String Items10 = Items9.substring(findspace9 + 1);
                                 int findspace10 = Items10.indexOf(" ");
@@ -384,7 +385,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
                                     Enchantment enchant4 = Enchantment.getByName(Enchant4);
-                                    stack.addEnchantment(enchant4, lv4);
+                                    metaa.addEnchant(enchant4, lv4,load.IllegalEnchants());
 
 
 
@@ -403,7 +404,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
                                             Enchantment enchant5 = Enchantment.getByName(Enchant5);
-                                            stack.addEnchantment(enchant5, lv5);
+                                            metaa.addEnchant(enchant5, lv5,load.IllegalEnchants());
 
 
 
@@ -421,7 +422,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
                                                 Enchantment enchant6 = Enchantment.getByName(Enchant6);
-                                                stack.addEnchantment(enchant6, lv6);
+                                                metaa.addEnchant(enchant6, lv6,load.IllegalEnchants());
                                             }
 
 
@@ -443,7 +444,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                     }
 
 
-
+                    stack.setItemMeta(metaa);
                     player.getInventory().addItem(stack);
 
 

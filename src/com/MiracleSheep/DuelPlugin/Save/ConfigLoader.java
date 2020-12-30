@@ -48,5 +48,10 @@ public class ConfigLoader {
         return(spectator);
     }
 
+    public boolean IllegalEnchants() {
+        boolean Illegalenchants = main.getConfig().getBoolean("IllegalEnchants");
+        return(Illegalenchants);
+    }
+
 
 }

@@ -2,6 +2,14 @@ package com.MiracleSheep.DuelPlugin;
 import com.MiracleSheep.DuelPlugin.Events.DuelPluginEvents;
 import com.MiracleSheep.DuelPlugin.Inventory.DuelSelection;
 import com.MiracleSheep.DuelPlugin.Save.ConfigLoader;
+import com.onarandombox.MultiverseCore.MultiverseCore;
+import com.onarandombox.MultiverseCore.utils.WorldManager;
+import com.onarandombox.MultiverseCore.api.MVWorldManager;
+import com.onarandombox.MultiverseCore.api.MultiverseWorld;
+import com.onarandombox.MultiverseCore.api.WorldPurger;
+import com.onarandombox.MultiverseCore.utils.PurgeWorlds;
+import com.onarandombox.MultiverseCore.utils.WorldManager;
+import com.sun.tools.javac.Main;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,30 +18,49 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
+import java.io.*;
+import java.util.*;
 
 
 public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
+    public MultiverseCore getMultiverseCore() {
+        Plugin plugin = getServer().getPluginManager().getPlugin("Multiverse-Core");
 
+        if (plugin instanceof MultiverseCore) {
+            return (MultiverseCore) plugin;
+        }
+        throw new RuntimeException("Multiverse not found!");
+    }
+
+
+        //WorldManager mv = new WorldManager(getMultiverseCore());
+
+ /*   public WorldManager getWorldManager() {
+        return(mv);
+    }
+*/
+
+
+    public int Worldnum = 0;
     public Acceptclass save = new Acceptclass(this);
     public Player target;
     public Player player;
     public ConfigLoader load = new ConfigLoader(this);
 
+
     //function that gets called when the plugin is enabled
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
         getServer().getPluginManager().registerEvents(new DuelPluginEvents(this), this);
         resetDuelRequest();
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[MiracleSheepDuelPlugin] plugin is enabled.");
@@ -89,21 +116,21 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 player.sendMessage(ChatColor.GOLD + "The kit items are:");
                 String[] Items = new String[getConfig().getStringList("Kits." + KitName + ".Items").size()];
 
-                for(int i = 0; i < itemList; i++) {
+                for (int i = 0; i < itemList; i++) {
                     Items[i] = getConfig().getStringList("Kits." + KitName + ".Items").get(i);
                 }
 
 
-                for (int i = 0 ; i < itemList ; i++) {
+                for (int i = 0; i < itemList; i++) {
                     int length = Items[i].length();
                     int findspace = Items[i].indexOf(" ");
-                    String Item = Items[i].substring(0,findspace);
-                    String Items2 = Items[i].substring(findspace+1);
+                    String Item = Items[i].substring(0, findspace);
+                    String Items2 = Items[i].substring(findspace + 1);
                     int findspace2 = Items2.indexOf(" ");
-                    Short meta = Short.parseShort(Items2.substring(0,findspace2));
+                    Short meta = Short.parseShort(Items2.substring(0, findspace2));
                     String Items3 = Items2.substring(findspace2 + 1);
                     int findspace3 = Items3.indexOf(" ");
-                    int amount = Integer.parseInt(Items3.substring(0,findspace3));
+                    int amount = Integer.parseInt(Items3.substring(0, findspace3));
 
 
                     player.sendMessage(ChatColor.GOLD + "-" + Item + "x" + amount);
@@ -112,7 +139,6 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
                 player.sendMessage(ChatColor.GOLD + "End of list.");
-
 
 
             } else {
@@ -134,7 +160,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
             if (args.length == 1) {
 
-            equipkit(player,args[0]);
+                equipkit(player, args[0]);
 
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "This command has the wrong number of arguments.");
@@ -168,7 +194,8 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 target = Bukkit.getPlayerExact(args[0]);
                 if (player == target) {
                     player.sendMessage(ChatColor.DARK_RED + "Are you stupid!? You can't duel yourself!");
-                    return true;}
+                    return true;
+                }
 
 
                 if (getRequested() == target && getRequester() == player) {
@@ -197,10 +224,22 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 getRequester().setHealth(20);
                 equipkit(getRequested(), save.dueltype);
                 equipkit(getRequester(), save.dueltype);
-                getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
-                getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
+                if (load.Clone() == true) {
+
+                    String duelworld = String.valueOf(getConfig().getString("worldname"));
+                    //MultiverseWorld d = mv.getMVWorld(duelworld);
+                    getMultiverseCore().getCore().getMVWorldManager().cloneWorld("Arena","Arena_temp");
 
 
+
+                    getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
+                    getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
+
+                } else {
+                    World tp = getServer().getWorld(getConfig().getString("worldname"));
+                    getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
+                    getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
+                }
 
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "No one has sent you a duel request!");
@@ -280,223 +319,169 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     }
 
 
-
-
     public void equipkit(Player player, String type) {
-                saveInventory(player);
-                player.getInventory().clear();
-                String[] Items = new String[getConfig().getStringList("Kits." + type + ".Items").size()];
+        saveInventory(player);
+        player.getInventory().clear();
+        String[] Items = new String[getConfig().getStringList("Kits." + type + ".Items").size()];
 
-                for(int i = 0; i < getConfig().getStringList("Kits." + type + ".Items").size(); i++) {
-                    Items[i] = getConfig().getStringList("Kits." + type + ".Items").get(i);
-                }
+        for (int i = 0; i < getConfig().getStringList("Kits." + type + ".Items").size(); i++) {
+            Items[i] = getConfig().getStringList("Kits." + type + ".Items").get(i);
+        }
 
-                for(int i = 0; i < getConfig().getStringList("Kits." + type + ".Items").size(); i++) {
+        for (int i = 0; i < getConfig().getStringList("Kits." + type + ".Items").size(); i++) {
 
-                    int length = Items[i].length();
-                    int findspace = Items[i].indexOf(" ");
-                    String Item = Items[i].substring(0,findspace);
+            int length = Items[i].length();
+            int findspace = Items[i].indexOf(" ");
+            String Item = Items[i].substring(0, findspace);
 
-                    String Items2 = Items[i].substring(findspace+1);
-                    int findspace2 = Items2.indexOf(" ");
-                    Short meta = Short.parseShort(Items2.substring(0,findspace2));
+            String Items2 = Items[i].substring(findspace + 1);
+            int findspace2 = Items2.indexOf(" ");
+            Short meta = Short.parseShort(Items2.substring(0, findspace2));
 
-                    String Items3 = Items2.substring(findspace2 + 1);
-                    int findspace3 = Items3.indexOf(" ");
-                    int amount = Integer.parseInt(Items3.substring(0,findspace3));
+            String Items3 = Items2.substring(findspace2 + 1);
+            int findspace3 = Items3.indexOf(" ");
+            int amount = Integer.parseInt(Items3.substring(0, findspace3));
 
-                    ItemStack stack = new ItemStack(Material.getMaterial(Item), amount, meta);
-                    ItemMeta metaa = stack.getItemMeta();
+            ItemStack stack = new ItemStack(Material.getMaterial(Item), amount, meta);
+            ItemMeta metaa = stack.getItemMeta();
 
-                    String Items4 = Items3.substring(findspace3 + 1);
-                    int findspace4 = Items4.indexOf(" ");
-                    String Enchant = Items4.substring(0,findspace4);
-                    player.sendMessage(ChatColor.DARK_RED + Enchant);
+            String Items4 = Items3.substring(findspace3 + 1);
+            int findspace4 = Items4.indexOf(" ");
+            String Enchant = Items4.substring(0, findspace4);
+            player.sendMessage(ChatColor.DARK_RED + Enchant);
 
-                    if (Enchant.startsWith("n")) {
-                        player.sendMessage(ChatColor.DARK_RED + "Enchant is equal to none");
+            if (Enchant.startsWith("n")) {
+                player.sendMessage(ChatColor.DARK_RED + "Enchant is equal to none");
+            } else {
+                player.sendMessage(ChatColor.DARK_RED + "Triggered");
+                String Items5 = Items4.substring(findspace4 + 1);
+                int findspace5 = Items5.indexOf(" ");
+                int lv = Integer.parseInt(Items5.substring(0, findspace5));
+
+                Enchantment enchant = Enchantment.getByName(Enchant);
+                metaa.addEnchant(enchant, lv, load.IllegalEnchants());
+
+
+                String Items6 = Items5.substring(findspace5 + 1);
+                int findspace6 = Items6.indexOf(" ");
+                String Enchant2 = Items6.substring(0, findspace6);
+                player.sendMessage(ChatColor.DARK_RED + "Enchant2: " + Enchant2);
+                if (Enchant2.startsWith("n")) {
+
+
+                } else {
+
+                    player.sendMessage(ChatColor.DARK_RED + "Second enchant Triggered");
+                    String Items7 = Items6.substring(findspace6 + 1);
+                    player.sendMessage(ChatColor.DARK_RED + "made new substr");
+                    int findspace7 = Items7.indexOf(" ");
+                    player.sendMessage(ChatColor.DARK_RED + "retreived location of nearest space");
+                    int lv2 = Integer.parseInt(Items7.substring(0, findspace7));
+                    player.sendMessage(ChatColor.DARK_RED + "declared lv2");
+
+                    player.sendMessage(ChatColor.DARK_RED + "lv2: " + lv2);
+                    Enchantment enchant2 = Enchantment.getByName(Enchant2);
+                    metaa.addEnchant(enchant2, lv2, load.IllegalEnchants());
+                    player.sendMessage(ChatColor.DARK_RED + "Enchanted succesfully");
+
+                    String Items8 = Items7.substring(findspace7 + 1);
+                    player.sendMessage(ChatColor.DARK_RED + "Items8 created");
+                    int findspace8 = Items8.indexOf(" ");
+                    player.sendMessage(ChatColor.DARK_RED + "Finding space eight: " + findspace8);
+                    String Enchant3 = Items8.substring(0, findspace8);
+                    player.sendMessage(ChatColor.DARK_RED + "determining next enchant: " + Enchant3);
+                    player.sendMessage(ChatColor.DARK_RED + "found next enchant");
+
+                    if (Enchant3.startsWith("n")) {
+                        player.sendMessage(ChatColor.DARK_RED + "No more enchants");
                     } else {
-                        player.sendMessage(ChatColor.DARK_RED + "Triggered");
-                        String Items5 = Items4.substring(findspace4 + 1);
-                        int findspace5 = Items5.indexOf(" ");
-                        int lv = Integer.parseInt(Items5.substring(0,findspace5));
+                        player.sendMessage(ChatColor.DARK_RED + "third enchant Triggered");
 
-                        Enchantment enchant = Enchantment.getByName(Enchant);
-                        metaa.addEnchant(enchant, lv, load.IllegalEnchants());
+                        String Items9 = Items8.substring(findspace8 + 1);
+                        int findspace9 = Items9.indexOf(" ");
+                        int lv3 = Integer.parseInt(Items9.substring(0, findspace9));
 
 
-                        String Items6 = Items5.substring(findspace5 + 1);
-                        int findspace6 = Items6.indexOf(" ");
-                        String Enchant2 = Items6.substring(0,findspace6);
-                        player.sendMessage(ChatColor.DARK_RED + "Enchant2: " + Enchant2);
-                        if (Enchant2.startsWith("n")) {
+                        Enchantment enchant3 = Enchantment.getByName(Enchant3);
+                        metaa.addEnchant(enchant3, lv3, load.IllegalEnchants());
 
+                        String Items10 = Items9.substring(findspace9 + 1);
+                        int findspace10 = Items10.indexOf(" ");
+                        String Enchant4 = Items10.substring(0, findspace10);
 
-
+                        if (Enchant4.startsWith("n")) {
 
                         } else {
 
-                            player.sendMessage(ChatColor.DARK_RED + "Second enchant Triggered");
-                            String Items7 = Items6.substring(findspace6 + 1);
-                            player.sendMessage(ChatColor.DARK_RED + "made new substr");
-                            int findspace7 = Items7.indexOf(" ");
-                            player.sendMessage(ChatColor.DARK_RED + "retreived location of nearest space");
-                            int lv2 = Integer.parseInt(Items7.substring(0,findspace7));
-                            player.sendMessage(ChatColor.DARK_RED + "declared lv2");
 
-                            player.sendMessage(ChatColor.DARK_RED + "lv2: " + lv2);
-                            Enchantment enchant2 = Enchantment.getByName(Enchant2);
-                            metaa.addEnchant(enchant2, lv2,load.IllegalEnchants());
-                            player.sendMessage(ChatColor.DARK_RED + "Enchanted succesfully");
+                            String Items11 = Items10.substring(findspace10 + 1);
+                            int findspace11 = Items9.indexOf(" ");
+                            int lv4 = Integer.parseInt(Items9.substring(0, findspace9));
 
-                            String Items8 = Items7.substring(findspace7 + 1);
-                            player.sendMessage(ChatColor.DARK_RED + "Items8 created");
-                            int findspace8 = Items8.indexOf(" ");
-                            player.sendMessage(ChatColor.DARK_RED + "Finding space eight: " + findspace8);
-                            String Enchant3 = Items8.substring(0,findspace8);
-                            player.sendMessage(ChatColor.DARK_RED + "determining next enchant: " + Enchant3);
-                            player.sendMessage(ChatColor.DARK_RED + "found next enchant");
 
-                            if (Enchant3.startsWith("n")) {
-                                player.sendMessage(ChatColor.DARK_RED + "No more enchants");
+                            Enchantment enchant4 = Enchantment.getByName(Enchant4);
+                            metaa.addEnchant(enchant4, lv4, load.IllegalEnchants());
+
+
+                            String Items12 = Items11.substring(findspace11 + 1);
+                            int findspace12 = Items12.indexOf(" ");
+                            String Enchant5 = Items12.substring(0, findspace12);
+
+                            if (Enchant5.startsWith("n")) {
+
                             } else {
-                                player.sendMessage(ChatColor.DARK_RED + "third enchant Triggered");
-
-                                String Items9 = Items8.substring(findspace8 + 1);
-                                int findspace9 = Items9.indexOf(" ");
-                                int lv3 = Integer.parseInt(Items9.substring(0,findspace9));
 
 
-                                Enchantment enchant3 = Enchantment.getByName(Enchant3);
-                                metaa.addEnchant(enchant3, lv3,load.IllegalEnchants());
+                                String Items13 = Items12.substring(findspace12 + 1);
+                                int findspace13 = Items13.indexOf(" ");
+                                int lv5 = Integer.parseInt(Items13.substring(0, findspace13));
 
-                                String Items10 = Items9.substring(findspace9 + 1);
-                                int findspace10 = Items10.indexOf(" ");
-                                String Enchant4 = Items10.substring(0,findspace10);
 
-                                if (Enchant4.startsWith("n")) {
+                                Enchantment enchant5 = Enchantment.getByName(Enchant5);
+                                metaa.addEnchant(enchant5, lv5, load.IllegalEnchants());
+
+
+                                String Items14 = Items13.substring(findspace13 + 1);
+                                int findspace14 = Items14.indexOf(" ");
+                                String Enchant6 = Items14.substring(0, findspace14);
+
+                                if (Enchant6.startsWith("n")) {
 
                                 } else {
 
-
-                                    String Items11 = Items10.substring(findspace10 + 1);
-                                    int findspace11 = Items9.indexOf(" ");
-                                    int lv4 = Integer.parseInt(Items9.substring(0,findspace9));
-
-
-                                    Enchantment enchant4 = Enchantment.getByName(Enchant4);
-                                    metaa.addEnchant(enchant4, lv4,load.IllegalEnchants());
+                                    String Items15 = Items14.substring(findspace14 + 1);
+                                    int findspace15 = Items15.indexOf(" ");
+                                    int lv6 = Integer.parseInt(Items15.substring(0, findspace15));
 
 
-
-                                    String Items12 = Items11.substring(findspace11 + 1);
-                                    int findspace12 = Items12.indexOf(" ");
-                                    String Enchant5 = Items12.substring(0,findspace12);
-
-                                        if (Enchant5.startsWith("n")) {
-
-                                        } else {
-
-
-                                            String Items13 = Items12.substring(findspace12 + 1);
-                                            int findspace13 = Items13.indexOf(" ");
-                                            int lv5 = Integer.parseInt(Items13.substring(0,findspace13));
-
-
-                                            Enchantment enchant5 = Enchantment.getByName(Enchant5);
-                                            metaa.addEnchant(enchant5, lv5,load.IllegalEnchants());
-
-
-
-                                            String Items14 = Items13.substring(findspace13 + 1);
-                                            int findspace14 = Items14.indexOf(" ");
-                                            String Enchant6 = Items14.substring(0,findspace14);
-
-                                            if (Enchant6.startsWith("n")) {
-
-                                            } else {
-
-                                                String Items15 = Items14.substring(findspace14 + 1);
-                                                int findspace15 = Items15.indexOf(" ");
-                                                int lv6 = Integer.parseInt(Items15.substring(0,findspace15));
-
-
-                                                Enchantment enchant6 = Enchantment.getByName(Enchant6);
-                                                metaa.addEnchant(enchant6, lv6,load.IllegalEnchants());
-                                            }
-
-
-                                        }
-
+                                    Enchantment enchant6 = Enchantment.getByName(Enchant6);
+                                    metaa.addEnchant(enchant6, lv6, load.IllegalEnchants());
                                 }
-
 
 
                             }
 
-
-
-
                         }
 
 
-
                     }
-
-
-                    stack.setItemMeta(metaa);
-                    player.getInventory().addItem(stack);
-
-
 
 
                 }
-               /* if (it.hasNext()) {
-                    while (it.hasNext()) {
-                        String[] item = Items.split(" ");
-                        String id = item[0];
-                        short meta = (short) Integer.parseInt(item[1]);
-                        int amount = Integer.parseInt(item[2]);
-                        ItemStack stack = new ItemStack(Material.getMaterial(id), amount, meta);
-                        if (!item[3].contains("none")) {
-                            int level = Integer.parseInt(item[4]);
-                            Enchantment enchant = Enchantment.getByName(item[3].toUpperCase());
-                            stack.addEnchantment(enchant, level);
-
-                            if (!item[5].contains("none")) {
-
-                                int level2 = Integer.parseInt(item[6]);
-                                Enchantment enchant2 = Enchantment.getByName(item[5].toUpperCase());
-                                stack.addEnchantment(enchant, level);
 
 
-                                if (!item[7].contains("none")) {
-
-                                    int lv2 = Integer.parseInt(item[8]);
-                                    Enchantment e2 = Enchantment.getByName(item[7].toUpperCase());
-                                    stack.addEnchantment(enchant, level);
-
-                                }
-
-
-
-                            }
-
-                        }
-                        player.getInventory().addItem(stack);
-                    }
-                }*/
             }
 
 
+            stack.setItemMeta(metaa);
+            player.getInventory().addItem(stack);
+
+
+        }
 
 
 
-
-
-
-
-
+    }
 
 
     public void dequipkit(Player player) {
@@ -511,16 +496,60 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
     public DuelSelection returnGui() {
         DuelSelection gui = new DuelSelection(this);
-        return(gui);
+        return (gui);
+    }
+
+
+    public boolean deleteWorld(File path) {
+        player.sendMessage(ChatColor.DARK_RED + "Deleteworld function triggered");
+        if (path.exists()) {
+            File files[] = path.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isDirectory()) {
+                    deleteWorld(files[i]);
+                } else {
+                    files[i].delete();
+                }
+            }
+        }
+        return (path.delete());
     }
 
 
 
+    public void copyWorld(File source, File target){
+        try {
+            ArrayList<String> ignore = new ArrayList<String>(Arrays.asList("uid.dat", "session.dat"));
+            if(!ignore.contains(source.getName())) {
+                if(source.isDirectory()) {
+                    if(!target.exists())
+                        target.mkdirs();
+                    String files[] = source.list();
+                    for (String file : files) {
+                        File srcFile = new File(source, file);
+                        File destFile = new File(target, file);
+                        copyWorld(srcFile, destFile);
+                    }
+                } else {
+                    InputStream in = new FileInputStream(source);
+                    OutputStream out = new FileOutputStream(target);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = in.read(buffer)) > 0)
+                        out.write(buffer, 0, length);
+                    in.close();
+                    out.close();
+                }
+            }
+        } catch (IOException e) {
+
+        }
+    }
+
+
+
+
 }
-
-
-
-
 
 
 

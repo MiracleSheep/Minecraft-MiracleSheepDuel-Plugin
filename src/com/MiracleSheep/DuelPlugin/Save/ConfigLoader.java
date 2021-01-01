@@ -1,10 +1,13 @@
 package com.MiracleSheep.DuelPlugin.Save;
 
 import com.MiracleSheep.DuelPlugin.DuelPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import com.onarandombox.MultiverseCore.MVWorld;
+import com.onarandombox.MultiverseCore.api.MultiverseWorld;
+import com.onarandombox.MultiverseCore.event.MVTeleportEvent;
+import com.onarandombox.MultiverseCore.utils.WorldManager;
+import org.bukkit.*;
+
+import java.io.File;
 
 public class ConfigLoader {
 
@@ -16,9 +19,24 @@ public class ConfigLoader {
 
     }
 
+
+ /*   public MultiverseWorld getMultiverseWorld(){
+
+    String duelworld = String.valueOf(main.getConfig().getString("worldname"));
+    MultiverseWorld d = main.passManager().getMVWorld(duelworld);
+        return (d);
+
+    }*/
+
     public World GetWorld() {
         String duelworld = String.valueOf(main.getConfig().getString("worldname"));
         World d = Bukkit.getServer().getWorld(duelworld);
+        return (d);
+    }
+
+    public World GetCopyWorld() {
+        String duelworld = String.valueOf(main.getConfig().getString("worldname"));
+        World d = Bukkit.getServer().getWorld(duelworld + "_temp");
         return (d);
     }
 
@@ -27,8 +45,15 @@ public class ConfigLoader {
         int x = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.X");
         int y = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.Y");
         int z = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.Z");
-        Location playerone = new Location(GetWorld(), x, y, z);
-        return(playerone);
+
+        if (Clone() == true) {
+            Location playerone = new Location(GetCopyWorld(), x, y, z);
+            return(playerone);
+        } else {
+            Location playerone = new Location(GetWorld(), x, y, z);
+            return(playerone);
+        }
+
     }
 
     public Location getPlayerTwoSpawn(String Arena) {
@@ -36,8 +61,14 @@ public class ConfigLoader {
         int y = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.Y");
         int z = main.getConfig().getInt("Stadiums." + Arena + ".PlayerTwo.Z");
 
-        Location playertwo = new Location(GetWorld(), x, y, z);
-        return(playertwo);
+
+        if (Clone() == true) {
+            Location playertwo = new Location(GetCopyWorld(), x, y, z);
+            return(playertwo);
+        } else {
+            Location playertwo = new Location(GetWorld(), x, y, z);
+            return(playertwo);
+        }
     }
 
     public Location getSpectatorSpawn(String Arena){
@@ -52,6 +83,43 @@ public class ConfigLoader {
         boolean Illegalenchants = main.getConfig().getBoolean("IllegalEnchants");
         return(Illegalenchants);
     }
+
+    public boolean Clone() {
+        boolean clone = main.getConfig().getBoolean("CloneWorld");
+        return(clone);
+    }
+
+    public String getArena(String dueltype) {
+        String arena = main.getConfig().getString("Kits." + dueltype + ".Arena");
+
+        return(arena);
+
+    }
+
+    public File getDelete() {
+        World delete = GetCopyWorld();
+        File deleteFolder = delete.getWorldFolder();
+
+        return (deleteFolder);
+    }
+
+    public File sourceWorld() {
+        World source = GetWorld();
+        File sourceFolder = source.getWorldFolder();
+        return(sourceFolder);
+    }
+
+    public File targetWorld() {
+
+        World target = GetCopyWorld();
+        File targetFolder = target.getWorldFolder();
+        return (targetFolder);
+    }
+
+
+
+
+
 
 
 }

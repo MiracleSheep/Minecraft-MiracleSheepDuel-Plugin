@@ -85,7 +85,7 @@ public class DuelPluginEvents implements Listener {
         World w = Bukkit.getServer().getWorld("world");
         World d = Bukkit.getServer().getWorld(duelworld);
 
-        if (main.getRequested().getWorld() == d && main.getRequester().getWorld() == d) {
+        if (main.getRequested().getWorld() == main.load.GetCopyWorld() && main.getRequester().getWorld() == main.load.GetCopyWorld() || main.getRequested().getWorld() == main.load.GetWorld() && main.getRequester().getWorld() == main.load.GetWorld()) {
 
             if (main.getRequester() == player) {
                 if (player.getHealth() - e.getDamage() < 0.1) {
@@ -101,6 +101,9 @@ public class DuelPluginEvents implements Listener {
                     main.getRequested().teleport(w.getSpawnLocation());
                     main.getRequester().teleport(w.getSpawnLocation());
                     main.resetDuelRequest();
+                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.getConfig().getString("worldname") + "_temp");
+                    //main.passManager().deleteWorld(main.getConfig().getString("worldname") + "_temp");
+                    //main.deleteWorld(main.load.targetWorld());
                 }
 
             } else if (main.getRequested() == player) {
@@ -117,8 +120,11 @@ public class DuelPluginEvents implements Listener {
                     main.getRequested().teleport(w.getSpawnLocation());
                     main.getRequester().teleport(w.getSpawnLocation());
                     main.resetDuelRequest();
+                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.getConfig().getString("worldname") + "_temp");
+                    //main.deleteWorld(main.load.GetCopyWorld().getWorldFolder());
                 }
             }
+            main.Worldnum += 1;
 
 
         }

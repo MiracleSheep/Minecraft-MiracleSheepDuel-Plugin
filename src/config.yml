@@ -7,6 +7,7 @@ Kits:
     # Icon that shows up in the duels menu
     Icon: GOLDEN_APPLE
     # Items in the kit
+    Arena: ArenaOne
     Items:
       - NETHERITE_LEGGINGS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
       - NETHERITE_CHESTPLATE 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
@@ -22,6 +23,7 @@ Kits:
       - COOKED_BEEF 0 32 none none
   Classic:
     Icon: FISHING_ROD
+    Arena: ArenaOne
     Items:
       - DIAMOND_BOOTS 0 1 none none
       - DIAMOND_LEGGINGS 0 1 none none
@@ -37,13 +39,13 @@ Kits:
 Stadiums:
   ArenaOne:
     PlayerOne:
-      X: -36
-      Y: 6
-      Z: 404
+      X: 1374
+      Y: 4
+      Z: -64
     PlayerTwo:
-      X: -36
-      Y: 6
-      Z: 280
+      X: 1374
+      Y: 4
+      Z: -24
     Spectator:
       X: -34
       Y: 24
@@ -51,11 +53,15 @@ Stadiums:
 
 # This is the world that the plugin looks in when it teleports you to the coordinates under the stadiums key.
 # change this name to the name of the world where you want your arena to be
-worldname: "Stadium"
+worldname: "Arena"
+
+worldname_temp: "Arena_temp"
 
 # This controls whether or not illegal enchantments will be allowed to be put on kit items.
 # Enable this to allow illegal enchants
 IllegalEnchants: false
+
+CloneWorld: false
 
 
 

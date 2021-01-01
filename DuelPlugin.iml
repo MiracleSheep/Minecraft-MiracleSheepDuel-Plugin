@@ -19,16 +19,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Server/plugins/Multiverse-Core-4.2.2 (1).jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Server/plugins/MiracleSheepEssentials.jar!/" />
+          <root url="jar://$MODULE_DIR$/../Dependencies/Multiverse-Core-4.2.2 (1).jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

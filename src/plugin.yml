@@ -4,6 +4,7 @@ author: MiracleSheep
 main: com.MiracleSheep.DuelPlugin.DuelPlugin
 api-version: 1.14
 depends: [Multiverse-Core]
+load: POSTWORLD
 commands:
   Kitlist:
     description: Used to list custom kits

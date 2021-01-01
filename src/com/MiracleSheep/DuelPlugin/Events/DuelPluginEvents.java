@@ -101,9 +101,8 @@ public class DuelPluginEvents implements Listener {
                     main.getRequested().teleport(w.getSpawnLocation());
                     main.getRequester().teleport(w.getSpawnLocation());
                     main.resetDuelRequest();
-                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.getConfig().getString("worldname") + "_temp");
-                    //main.passManager().deleteWorld(main.getConfig().getString("worldname") + "_temp");
-                    //main.deleteWorld(main.load.targetWorld());
+                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
+
                 }
 
             } else if (main.getRequested() == player) {
@@ -120,11 +119,11 @@ public class DuelPluginEvents implements Listener {
                     main.getRequested().teleport(w.getSpawnLocation());
                     main.getRequester().teleport(w.getSpawnLocation());
                     main.resetDuelRequest();
-                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.getConfig().getString("worldname") + "_temp");
+                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
                     //main.deleteWorld(main.load.GetCopyWorld().getWorldFolder());
                 }
             }
-            main.Worldnum += 1;
+
 
 
         }

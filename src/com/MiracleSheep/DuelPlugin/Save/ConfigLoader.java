@@ -36,9 +36,11 @@ public class ConfigLoader {
 
     public World GetCopyWorld() {
         String duelworld = String.valueOf(main.getConfig().getString("worldname"));
-        World d = Bukkit.getServer().getWorld(duelworld + "_temp");
+        World d = Bukkit.getServer().getWorld(duelworld + "_temp" + main.Worldnum);
         return (d);
     }
+
+
 
 
     public Location getPlayerOneSpawn(String Arena) {
@@ -114,6 +116,17 @@ public class ConfigLoader {
         World target = GetCopyWorld();
         File targetFolder = target.getWorldFolder();
         return (targetFolder);
+    }
+
+    public String GetWorldName() {
+        String name = main.getConfig().getString("worldname");
+        return(name);
+    }
+
+    public String GetCopyWorldName() {
+        String name = main.getConfig().getString("worldname") + "_temp" + main.Worldnum;
+        return(name);
+
     }
 
 

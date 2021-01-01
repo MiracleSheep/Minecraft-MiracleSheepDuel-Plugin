@@ -61,7 +61,7 @@ worldname_temp: "Arena_temp"
 # Enable this to allow illegal enchants
 IllegalEnchants: false
 
-CloneWorld: false
+CloneWorld: true
 
 
 

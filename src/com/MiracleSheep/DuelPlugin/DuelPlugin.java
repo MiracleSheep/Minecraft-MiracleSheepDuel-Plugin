@@ -41,14 +41,6 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     }
 
 
-        //WorldManager mv = new WorldManager(getMultiverseCore());
-
- /*   public WorldManager getWorldManager() {
-        return(mv);
-    }
-*/
-
-
     public int Worldnum = 0;
     public Acceptclass save = new Acceptclass(this);
     public Player target;
@@ -60,7 +52,6 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-
         getServer().getPluginManager().registerEvents(new DuelPluginEvents(this), this);
         resetDuelRequest();
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[MiracleSheepDuelPlugin] plugin is enabled.");
@@ -205,6 +196,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
                 saveDuelRequest();
                 player.openInventory(returnGui().getInventory());
+
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "Too many or not enough arguments");
                 player.sendMessage(ChatColor.DARK_RED + "Use /duel <playername>");
@@ -220,26 +212,27 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
 
             if (getRequested() == player) {
-                getRequested().setHealth(20);
-                getRequester().setHealth(20);
-                equipkit(getRequested(), save.dueltype);
-                equipkit(getRequester(), save.dueltype);
+
+                Worldnum += 1;
+
                 if (load.Clone() == true) {
 
-                    String duelworld = String.valueOf(getConfig().getString("worldname"));
-                    //MultiverseWorld d = mv.getMVWorld(duelworld);
-                    getMultiverseCore().getCore().getMVWorldManager().cloneWorld("Arena","Arena_temp");
-
-
-
+                    getMultiverseCore().getCore().getMVWorldManager().cloneWorld(load.GetWorldName(),load.GetCopyWorldName());
                     getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
                     getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
 
                 } else {
-                    World tp = getServer().getWorld(getConfig().getString("worldname"));
                     getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
                     getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
+
                 }
+
+                getRequested().setHealth(20);
+                getRequester().setHealth(20);
+                getRequester().setFoodLevel(20);
+                getRequested().setFoodLevel(20);
+                equipkit(getRequested(), save.dueltype);
+                equipkit(getRequester(), save.dueltype);
 
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "No one has sent you a duel request!");

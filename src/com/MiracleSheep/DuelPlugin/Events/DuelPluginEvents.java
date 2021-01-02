@@ -58,7 +58,7 @@ public class DuelPluginEvents implements Listener {
                 if (slotnum >= 0 && slotnum < kitnum) {
                     main.sendRequest();
                     main.save.setType(e.getSlot());
-                    main.getRequester().closeInventory();
+                    main.getRequester(main.Worldnum).closeInventory();
 
 
                 } else if (slotnum >= kitnum) {
@@ -84,48 +84,51 @@ public class DuelPluginEvents implements Listener {
         String duelworld = String.valueOf(main.getConfig().getString("worldname"));
         World w = Bukkit.getServer().getWorld("world");
         World d = Bukkit.getServer().getWorld(duelworld);
+        for (int i = 1; i <= main.Worldnum; i ++) {
 
-        if (main.getRequested().getWorld() == main.load.GetCopyWorld() && main.getRequester().getWorld() == main.load.GetCopyWorld() || main.getRequested().getWorld() == main.load.GetWorld() && main.getRequester().getWorld() == main.load.GetWorld()) {
+            if (main.getRequested(i).getWorld() == main.load.GetCopyWorld() && main.getRequester(i).getWorld() == main.load.GetCopyWorld() || main.getRequested(i).getWorld() == main.load.GetWorld() && main.getRequester(i).getWorld() == main.load.GetWorld()) {
+                player.sendMessage(ChatColor.RED + "You are in the correct world");
+                if (main.getRequester(i) == player) {
+                    if (player.getHealth() - e.getDamage() < 0.1) {
+                        e.setCancelled(true);
+                        player.sendMessage(ChatColor.RED + "You lost... sending you home...");
+                        main.dequipkit(player);
+                        main.getRequested(i).sendMessage(ChatColor.GREEN + "You won the duel! Sending you home...");
+                        main.dequipkit(main.getRequested(i));
+                        main.getRequester(i).setFireTicks(0);
+                        main.getRequested(i).setFireTicks(0);
+                        main.getRequested(i).setHealth(20);
+                        main.getRequester(i).setHealth(20);
+                        main.getRequester(i).setFoodLevel(20);
+                        main.getRequested(i).setFoodLevel(20);
+                        main.getRequested(i).teleport(w.getSpawnLocation());
+                        main.getRequester(i).teleport(w.getSpawnLocation());
+                        main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
 
-            if (main.getRequester() == player) {
-                if (player.getHealth() - e.getDamage() < 0.1) {
-                    e.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You lost... sending you home...");
-                    main.dequipkit(player);
-                    main.getRequested().sendMessage(ChatColor.GREEN + "You won the duel! Sending you home...");
-                    main.dequipkit(main.getRequested());
-                    main.getRequester().setFireTicks(0);
-                    main.getRequested().setFireTicks(0);
-                    main.getRequested().setHealth(20);
-                    main.getRequester().setHealth(20);
-                    main.getRequested().teleport(w.getSpawnLocation());
-                    main.getRequester().teleport(w.getSpawnLocation());
-                    main.resetDuelRequest();
-                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
+                    }
 
+                } else if (main.getRequested(i) == player) {
+                    if (player.getHealth() - e.getDamage() < 0.1) {
+                        e.setCancelled(true);
+                        player.sendMessage(ChatColor.RED + "You lost... sending you home...");
+                        main.dequipkit(player);
+                        main.getRequester(i).sendMessage(ChatColor.GREEN + "You won the duel! Sending you home...");
+                        main.dequipkit(main.getRequester(i));
+                        main.getRequester(i).setFireTicks(0);
+                        main.getRequested(i).setFireTicks(0);
+                        main.getRequested(i).setHealth(20);
+                        main.getRequester(i).setHealth(20);
+                        main.getRequester(i).setFoodLevel(20);
+                        main.getRequested(i).setFoodLevel(20);
+                        main.getRequested(i).teleport(w.getSpawnLocation());
+                        main.getRequester(i).teleport(w.getSpawnLocation());
+                        main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
+
+                    }
                 }
 
-            } else if (main.getRequested() == player) {
-                if (player.getHealth() - e.getDamage() < 0.1) {
-                    e.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You lost... sending you home...");
-                    main.dequipkit(player);
-                    main.getRequester().sendMessage(ChatColor.GREEN + "You won the duel! Sending you home...");
-                    main.dequipkit(main.getRequester());
-                    main.getRequester().setFireTicks(0);
-                    main.getRequested().setFireTicks(0);
-                    main.getRequested().setHealth(20);
-                    main.getRequester().setHealth(20);
-                    main.getRequested().teleport(w.getSpawnLocation());
-                    main.getRequester().teleport(w.getSpawnLocation());
-                    main.resetDuelRequest();
-                    main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
-                    //main.deleteWorld(main.load.GetCopyWorld().getWorldFolder());
-                }
+
             }
-
-
-
         }
 
     }

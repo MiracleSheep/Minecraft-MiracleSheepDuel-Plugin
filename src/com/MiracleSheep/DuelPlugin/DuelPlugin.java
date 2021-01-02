@@ -53,7 +53,6 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     public void onEnable() {
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new DuelPluginEvents(this), this);
-        resetDuelRequest();
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[MiracleSheepDuelPlugin] plugin is enabled.");
 
     }
@@ -188,13 +187,9 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                     return true;
                 }
 
+                Worldnum += 1;
 
-                if (getRequested() == target && getRequester() == player) {
-                    player.sendMessage(ChatColor.DARK_RED + "Sorry, but you already duel requested someone.");
-                    return true;
-                }
-
-                saveDuelRequest();
+                saveDuelRequest(Worldnum);
                 player.openInventory(returnGui().getInventory());
 
             } else {
@@ -211,28 +206,28 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
             }
 
 
-            if (getRequested() == player) {
+            if (getRequested(Worldnum) == player) {
 
-                Worldnum += 1;
+
 
                 if (load.Clone() == true) {
 
                     getMultiverseCore().getCore().getMVWorldManager().cloneWorld(load.GetWorldName(),load.GetCopyWorldName());
-                    getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
-                    getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
+                    getRequester(Worldnum).teleport(load.getPlayerOneSpawn("ArenaOne"));
+                    getRequested(Worldnum).teleport(load.getPlayerTwoSpawn("ArenaOne"));
 
                 } else {
-                    getRequester().teleport(load.getPlayerOneSpawn("ArenaOne"));
-                    getRequested().teleport(load.getPlayerTwoSpawn("ArenaOne"));
+                    getRequester(Worldnum).teleport(load.getPlayerOneSpawn("ArenaOne"));
+                    getRequested(Worldnum).teleport(load.getPlayerTwoSpawn("ArenaOne"));
 
                 }
 
-                getRequested().setHealth(20);
-                getRequester().setHealth(20);
-                getRequester().setFoodLevel(20);
-                getRequested().setFoodLevel(20);
-                equipkit(getRequested(), save.dueltype);
-                equipkit(getRequester(), save.dueltype);
+                getRequested(Worldnum).setHealth(20);
+                getRequester(Worldnum).setHealth(20);
+                getRequester(Worldnum).setFoodLevel(20);
+                getRequested(Worldnum).setFoodLevel(20);
+                equipkit(getRequested(Worldnum), save.dueltype);
+                equipkit(getRequester(Worldnum), save.dueltype);
 
             } else {
                 player.sendMessage(ChatColor.DARK_RED + "No one has sent you a duel request!");
@@ -268,8 +263,8 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     }
 
 
-    public void saveDuelRequest() {
-        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel.yml");
+    public void saveDuelRequest(int num) {
+        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel" + num + ".yml");
         FileConfiguration c = YamlConfiguration.loadConfiguration(f);
         c.set("requested", target.getName());
         c.set("requester", player.getName());
@@ -280,8 +275,8 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
         }
     }
 
-    public void resetDuelRequest() {
-        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel.yml");
+    public void resetDuelRequest(int num) {
+        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel" + num + ".yml");
         FileConfiguration c = YamlConfiguration.loadConfiguration(f);
         c.set("requested", "None");
         c.set("requester", "None");
@@ -294,8 +289,8 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     }
 
 
-    public Player getRequested() {
-        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel.yml");
+    public Player getRequested(int num) {
+        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel" + num + ".yml");
         FileConfiguration c = YamlConfiguration.loadConfiguration(f);
         String name = (String) c.get("requested");
         Player requested = Bukkit.getPlayer(name);
@@ -303,8 +298,8 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
         return requested;
     }
 
-    public Player getRequester() {
-        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel.yml");
+    public Player getRequester(int num) {
+        File f = new File(this.getDataFolder().getAbsolutePath(), "Duel" + num + ".yml");
         FileConfiguration c = YamlConfiguration.loadConfiguration(f);
         String name = (String) c.get("requester");
         Player requester = Bukkit.getPlayer(name);

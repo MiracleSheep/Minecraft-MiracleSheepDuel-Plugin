@@ -12,6 +12,7 @@ import com.onarandombox.MultiverseCore.utils.WorldManager;
 import com.sun.tools.javac.Main;
 import org.bukkit.*;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -45,6 +46,7 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
     public Acceptclass save = new Acceptclass(this);
     public Player target;
     public Player player;
+    public boolean duelready = false;
     public ConfigLoader load = new ConfigLoader(this);
 
 
@@ -181,22 +183,34 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
             }
 
             if (args.length == 1) {
-                target = Bukkit.getPlayerExact(args[0]);
+                try {
+                    target = Bukkit.getPlayerExact(args[0]);
+
                 if (player == target) {
                     player.sendMessage(ChatColor.DARK_RED + "Are you stupid!? You can't duel yourself!");
                     return true;
                 }
 
-
+                duelready = true;
                 Worldnum += 1;
                 saveDuelRequest(Worldnum);
                     int length = getConfig().getString("worldname").length();
                     String name = getConfig().getString("worldname");
+
+
                     if (player.getWorld().getName().startsWith(name)){
                         player.sendMessage(ChatColor.DARK_RED + "You are already in a duel!");
                         Worldnum -= 1;
                         return true;
+                    }else if (target.getWorld().getName().startsWith(name)) {
+                        player.sendMessage(ChatColor.DARK_RED + "That person is already in a duel!");
+                        Worldnum -= 1;
+                        return true;
                     }
+                } catch (Throwable e) {
+                    player.sendMessage(ChatColor.DARK_RED + "That is not a valid player!");
+                    return true;
+                }
 
                 player.openInventory(returnGui().getInventory());
 
@@ -216,7 +230,20 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
             if (getRequested(Worldnum) == player) {
 
+                int length = getConfig().getString("worldname").length();
+                String name = getConfig().getString("worldname");
 
+
+                if (player.getWorld().getName().startsWith(name)){
+                    player.sendMessage(ChatColor.DARK_RED + "You are already in a duel!");
+                    return true;
+                }
+
+                if (duelready == false) {
+                    player.sendMessage(ChatColor.DARK_RED + "You must send another duel request!");
+                    return true;
+                }
+                duelready = false;
 
                 if (load.Clone() == true) {
 

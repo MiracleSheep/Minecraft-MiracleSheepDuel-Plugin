@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -70,6 +71,32 @@ public class DuelPluginEvents implements Listener {
             }
         } catch (ClassCastException f) {
             f.getStackTrace();
+        }
+
+    }
+
+
+    @EventHandler
+    public void onDisconnect(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
+        String name = main.getConfig().getString("worldname");
+        World w = Bukkit.getServer().getWorld("world");
+        if (player.getWorld().getName().startsWith(name)) {
+            for (int i = 1 ; i <= main.Worldnum ; i++) {
+                player.sendMessage(ChatColor.RED + "Somebody disconnected, you will both be sent home.");
+                main.dequipkit(player);
+                main.dequipkit(main.getRequested(i));
+                main.getRequester(i).setFireTicks(0);
+                main.getRequested(i).setFireTicks(0);
+                main.getRequested(i).setHealth(20);
+                main.getRequester(i).setHealth(20);
+                main.getRequester(i).setFoodLevel(20);
+                main.getRequested(i).setFoodLevel(20);
+                main.getRequested(i).teleport(w.getSpawnLocation());
+                main.getRequester(i).teleport(w.getSpawnLocation());
+                main.getMultiverseCore().getCore().getMVWorldManager().deleteWorld(main.load.GetCopyWorldName());
+
+            }
         }
 
     }

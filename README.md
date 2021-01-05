@@ -25,7 +25,7 @@ It also has a kit feature, that allows you to create new kits to equip and duel 
 * Duel kit Icons that appear in the selection screen can be customized in the config
 * Custom locations and arenas can be set for each kit
 * Illegal enchantments can be toggled on and off in the config
-* A clone world feature has been added where the plugin will make a clone of your duel world and send the players to that instead, then delete it when the players are done
+* A clone world feature has been added where the plugin will make a clone of your duel world and send the players to that instead, then delete it when the players are done (optionnal, can be set to true or false in the config)
 * depends and uses multiverse API
 
 ## To be implemented

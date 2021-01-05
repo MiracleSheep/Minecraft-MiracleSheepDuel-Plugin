@@ -8,7 +8,7 @@ import com.onarandombox.MultiverseCore.utils.WorldManager;
 import org.bukkit.*;
 
 import java.io.File;
-
+//clas that reads things from config
 public class ConfigLoader {
 
 

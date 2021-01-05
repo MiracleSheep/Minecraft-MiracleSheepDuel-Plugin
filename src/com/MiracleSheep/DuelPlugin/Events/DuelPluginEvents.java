@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.net.http.WebSocket;
-
+//The event section
 public class DuelPluginEvents implements Listener {
 
     private final DuelPlugin main;

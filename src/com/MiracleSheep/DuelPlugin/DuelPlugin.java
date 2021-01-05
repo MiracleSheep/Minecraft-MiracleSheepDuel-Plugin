@@ -29,7 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.util.*;
 
-
+//main plugin class
 public class DuelPlugin extends JavaPlugin implements CommandExecutor {
 
     public MultiverseCore getMultiverseCore() {

@@ -14,25 +14,38 @@ Kits:
       - NETHERITE_HELMET 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
       - NETHERITE_BOOTS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
       - GOLDEN_APPLE 0 6 none none
-      - NETHERITE_SWORD 0 1 DAMAGE_ALL 5 MENDING 1 DURABILITY 2 KNOCKBACK 2 LOOT_BONUS_MOBS 2 none none
-      - NETHERITE_AXE 0 1 MENDING 1 DURABILITY 2 DIG_SPEED 5 none none
+      - NETHERITE_SWORD 0 1 DAMAGE_ALL 5 MENDING 1 DURABILITY 2 none none
+      - NETHERITE_AXE 0 1 MENDING 1 DURABILITY 2 none none
       - LAVA_BUCKET 0 1 none none
       - WATER_BUCKET 0 1 none none
-      - BOW 0 1 ARROW_KNOCKBACK 2 MENDING 1 ARROW_DAMAGE 3 DURABILITY 2 ARROW_FIRE 1 ARROW_INFINITE 1 none none
+      - BOW 0 1 MENDING 1 ARROW_DAMAGE 3 DURABILITY 2 none none
       - ARROW 0 15 none none
       - COOKED_BEEF 0 32 none none
-  Classic:
-    Icon: FISHING_ROD
+      - OAK_PLANKS 0 64 none none
+  Axe:
+    Icon: DIAMOND_AXE
     Arena: ArenaOne
     Items:
-      - DIAMOND_BOOTS 0 1 none none
-      - DIAMOND_LEGGINGS 0 1 none none
-      - DIAMOND_CHESTPLATE 0 1 none none
-      - DIAMOND_HELMET 0 1 none none
-      - DIAMOND_SWORD 0 1 none none
-      - DIAMOND_AXE 0 1 none none
+      - DIAMOND_BOOTS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_LEGGINGS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_CHESTPLATE 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_HELMET 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_AXE 0 1 MENDING 1 DURABILITY 2 none none
       - SHIELD 0 1 none none
       - COOKED_BEEF 0 32 none none
+  Trident:
+    Icon: TRIDENT
+    Arena: ArenaTwo
+    Items:
+      - DIAMOND_BOOTS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_LEGGINGS 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_CHESTPLATE 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_HELMET 0 1 PROTECTION_ENVIRONMENTAL 4 MENDING 1 DURABILITY 3 none none
+      - DIAMOND_SWORD 0 1 DAMAGE_ALL 5 MENDING 1 DURABILITY 2 none none
+      - COOKED_BEEF 0 32 none none
+      - TRIDENT 0 1 RIPTIDE 3 DURABILITY 3 none none
+      - DIAMOND_AXE 0 1 MENDING 1 DURABILITY 2 none none
+      - WATER_BUCKET 0 1 none none
 
 # This contains the different stadiums that players will be teleported to, and holds their coordinates.
 # In future updates, multiple arenas (and maybe players) will be able to be specified
@@ -50,12 +63,23 @@ Stadiums:
       X: -34
       Y: 24
       Z: 345
+  ArenaTwo:
+    PlayerOne:
+      X: 1
+      Y: 8
+      Z: 0
+    PlayerTwo:
+      X: 2
+      Y: 8
+      Z: 0
+    Spectator:
+      X: 1
+      Y: 8
+      Z: 0
 
 # This is the world that the plugin looks in when it teleports you to the coordinates under the stadiums key.
 # change this name to the name of the world where you want your arena to be
 worldname: "Arena"
-
-worldname_temp: "Arena_temp"
 
 # This controls whether or not illegal enchantments will be allowed to be put on kit items.
 # Enable this to allow illegal enchants

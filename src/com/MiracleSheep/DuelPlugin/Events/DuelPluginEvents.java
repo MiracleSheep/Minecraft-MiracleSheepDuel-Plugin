@@ -4,6 +4,7 @@ import com.MiracleSheep.DuelPlugin.DuelPlugin;
 import com.MiracleSheep.DuelPlugin.Inventory.DuelSelection;
 import com.MiracleSheep.DuelPlugin.Save.ConfigLoader;
 import org.bukkit.*;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -86,8 +87,7 @@ public class DuelPluginEvents implements Listener {
         World d = Bukkit.getServer().getWorld(duelworld);
         for (int i = 1; i <= main.Worldnum; i ++) {
 
-            if (main.getRequested(i).getWorld() == main.load.GetCopyWorld() && main.getRequester(i).getWorld() == main.load.GetCopyWorld() || main.getRequested(i).getWorld() == main.load.GetWorld() && main.getRequester(i).getWorld() == main.load.GetWorld()) {
-                player.sendMessage(ChatColor.RED + "You are in the correct world");
+            if (main.getRequested(i).getWorld() == main.load.GetCopyWorld(i) && main.getRequester(i).getWorld() == main.load.GetCopyWorld(i) || main.getRequested(i).getWorld() == main.load.GetWorld() && main.getRequester(i).getWorld() == main.load.GetWorld()) {
                 if (main.getRequester(i) == player) {
                     if (player.getHealth() - e.getDamage() < 0.1) {
                         e.setCancelled(true);

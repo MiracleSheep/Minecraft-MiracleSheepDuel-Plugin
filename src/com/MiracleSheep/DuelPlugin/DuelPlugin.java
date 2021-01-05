@@ -187,9 +187,17 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                     return true;
                 }
 
-                Worldnum += 1;
 
+                Worldnum += 1;
                 saveDuelRequest(Worldnum);
+                    int length = getConfig().getString("worldname").length();
+                    String name = getConfig().getString("worldname");
+                    if (player.getWorld().getName().startsWith(name)){
+                        player.sendMessage(ChatColor.DARK_RED + "You are already in a duel!");
+                        Worldnum -= 1;
+                        return true;
+                    }
+
                 player.openInventory(returnGui().getInventory());
 
             } else {
@@ -213,12 +221,12 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 if (load.Clone() == true) {
 
                     getMultiverseCore().getCore().getMVWorldManager().cloneWorld(load.GetWorldName(),load.GetCopyWorldName());
-                    getRequester(Worldnum).teleport(load.getPlayerOneSpawn("ArenaOne"));
-                    getRequested(Worldnum).teleport(load.getPlayerTwoSpawn("ArenaOne"));
+                    getRequester(Worldnum).teleport(load.getPlayerOneSpawn(getConfig().getString("Kits." + save.dueltype + ".Arena")));
+                    getRequested(Worldnum).teleport(load.getPlayerTwoSpawn(getConfig().getString("Kits." + save.dueltype + ".Arena")));
 
                 } else {
-                    getRequester(Worldnum).teleport(load.getPlayerOneSpawn("ArenaOne"));
-                    getRequested(Worldnum).teleport(load.getPlayerTwoSpawn("ArenaOne"));
+                    getRequester(Worldnum).teleport(load.getPlayerOneSpawn(getConfig().getString("Kits." + save.dueltype + ".Arena")));
+                    getRequested(Worldnum).teleport(load.getPlayerTwoSpawn(getConfig().getString("Kits." + save.dueltype + ".Arena")));
 
                 }
 
@@ -336,12 +344,12 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
             String Items4 = Items3.substring(findspace3 + 1);
             int findspace4 = Items4.indexOf(" ");
             String Enchant = Items4.substring(0, findspace4);
-            player.sendMessage(ChatColor.DARK_RED + Enchant);
+
 
             if (Enchant.startsWith("n")) {
-                player.sendMessage(ChatColor.DARK_RED + "Enchant is equal to none");
+
             } else {
-                player.sendMessage(ChatColor.DARK_RED + "Triggered");
+
                 String Items5 = Items4.substring(findspace4 + 1);
                 int findspace5 = Items5.indexOf(" ");
                 int lv = Integer.parseInt(Items5.substring(0, findspace5));
@@ -353,37 +361,28 @@ public class DuelPlugin extends JavaPlugin implements CommandExecutor {
                 String Items6 = Items5.substring(findspace5 + 1);
                 int findspace6 = Items6.indexOf(" ");
                 String Enchant2 = Items6.substring(0, findspace6);
-                player.sendMessage(ChatColor.DARK_RED + "Enchant2: " + Enchant2);
                 if (Enchant2.startsWith("n")) {
 
 
                 } else {
 
-                    player.sendMessage(ChatColor.DARK_RED + "Second enchant Triggered");
                     String Items7 = Items6.substring(findspace6 + 1);
-                    player.sendMessage(ChatColor.DARK_RED + "made new substr");
                     int findspace7 = Items7.indexOf(" ");
-                    player.sendMessage(ChatColor.DARK_RED + "retreived location of nearest space");
                     int lv2 = Integer.parseInt(Items7.substring(0, findspace7));
-                    player.sendMessage(ChatColor.DARK_RED + "declared lv2");
 
-                    player.sendMessage(ChatColor.DARK_RED + "lv2: " + lv2);
                     Enchantment enchant2 = Enchantment.getByName(Enchant2);
                     metaa.addEnchant(enchant2, lv2, load.IllegalEnchants());
-                    player.sendMessage(ChatColor.DARK_RED + "Enchanted succesfully");
+
 
                     String Items8 = Items7.substring(findspace7 + 1);
-                    player.sendMessage(ChatColor.DARK_RED + "Items8 created");
                     int findspace8 = Items8.indexOf(" ");
-                    player.sendMessage(ChatColor.DARK_RED + "Finding space eight: " + findspace8);
                     String Enchant3 = Items8.substring(0, findspace8);
-                    player.sendMessage(ChatColor.DARK_RED + "determining next enchant: " + Enchant3);
-                    player.sendMessage(ChatColor.DARK_RED + "found next enchant");
+
 
                     if (Enchant3.startsWith("n")) {
-                        player.sendMessage(ChatColor.DARK_RED + "No more enchants");
+
                     } else {
-                        player.sendMessage(ChatColor.DARK_RED + "third enchant Triggered");
+
 
                         String Items9 = Items8.substring(findspace8 + 1);
                         int findspace9 = Items9.indexOf(" ");

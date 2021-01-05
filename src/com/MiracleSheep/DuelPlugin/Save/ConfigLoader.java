@@ -34,9 +34,9 @@ public class ConfigLoader {
         return (d);
     }
 
-    public World GetCopyWorld() {
+    public World GetCopyWorld(int num) {
         String duelworld = String.valueOf(main.getConfig().getString("worldname"));
-        World d = Bukkit.getServer().getWorld(duelworld + "_temp" + main.Worldnum);
+        World d = Bukkit.getServer().getWorld(duelworld + "_temp" + num);
         return (d);
     }
 
@@ -49,7 +49,7 @@ public class ConfigLoader {
         int z = main.getConfig().getInt("Stadiums." + Arena + ".PlayerOne.Z");
 
         if (Clone() == true) {
-            Location playerone = new Location(GetCopyWorld(), x, y, z);
+            Location playerone = new Location(GetCopyWorld(main.Worldnum), x, y, z);
             return(playerone);
         } else {
             Location playerone = new Location(GetWorld(), x, y, z);
@@ -65,7 +65,7 @@ public class ConfigLoader {
 
 
         if (Clone() == true) {
-            Location playertwo = new Location(GetCopyWorld(), x, y, z);
+            Location playertwo = new Location(GetCopyWorld(main.Worldnum), x, y, z);
             return(playertwo);
         } else {
             Location playertwo = new Location(GetWorld(), x, y, z);
@@ -98,8 +98,8 @@ public class ConfigLoader {
 
     }
 
-    public File getDelete() {
-        World delete = GetCopyWorld();
+    public File getDelete(int num) {
+        World delete = GetCopyWorld(num);
         File deleteFolder = delete.getWorldFolder();
 
         return (deleteFolder);
@@ -111,9 +111,9 @@ public class ConfigLoader {
         return(sourceFolder);
     }
 
-    public File targetWorld() {
+    public File targetWorld(int num) {
 
-        World target = GetCopyWorld();
+        World target = GetCopyWorld(num);
         File targetFolder = target.getWorldFolder();
         return (targetFolder);
     }

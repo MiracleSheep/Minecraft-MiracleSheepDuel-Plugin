@@ -31,4 +31,5 @@ It also has a kit feature, that allows you to create new kits to equip and duel 
 ## To be implemented
 * Golden heads(might not, not really neccesary. Was thinking about 1.8.9 when i thought up this feature, but considering that I am using it in 1.16.4, probabbly won't add)
 * Bug fixes involving the accept command while in a duel and multiple people dueling at the same time
+* a /spectate feature and coordinates in the config where spectators will warp to based on the arena and kit selected
 * *General polishing*

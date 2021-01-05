@@ -15,3 +15,20 @@ It also has a kit feature, that allows you to create new kits to equip and duel 
 * Making the config easier to understand
 * adding golden heads to the game
 * general bug fixing
+
+# Update as of January 4th, 2021
+
+## Implemented so far:
+* Config is fully organized
+* Items can have up to six enchantments
+* Amount and durability of each item can be customized
+* Duel kit Icons that appear in the selection screen can be customized in the config
+* Custom locations and arenas can be set for each kit
+* Illegal enchantments can be toggled on and off in the config
+* A clone world feature has been added where the plugin will make a clone of your duel world and send the players to that instead, then delete it when the players are done
+* depends and uses multiverse API
+
+## To be implemented
+* Golden heads(might not, not really neccesary. Was thinking about 1.8.9 when i thought up this feature, but considering that I am using it in 1.16.4, probabbly won't add)
+* Bug fixes involving the accept command while in a duel and multiple people dueling at the same time
+* *General polishing*
